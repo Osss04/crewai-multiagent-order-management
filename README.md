@@ -1,111 +1,108 @@
-# CrewAI Multi-Agent Order Management System
+# Sistema de Gestión de Pedidos Multiagente con CrewAI
 
-This project implements a **multi-agent AI system** for restaurant order management using **CrewAI** and **Large Language Models (LLMs)**. The system autonomously handles user orders expressed in natural language, validates them, and persists them into a database, following a modular and production-oriented architecture.
-
-The project is designed as a **portfolio-ready example of agentic AI**, showcasing agent orchestration, LLM integration, and clean Python engineering practices.
+Este proyecto implementa un **sistema multiagente** para la gestión de pedidos en un restaurante utilizando **CrewAI** y **LLMs**. El sistema gestiona de forma autónoma los pedidos de los usuarios expresados en lenguaje natural, los valida y los persiste en una base de datos, siguiendo una arquitectura modular y orientada a entornos de producción.
 
 ---
 
-## 🧠 System Architecture
+## 🧠 Arquitectura del Sistema
 
-The system follows a **multi-agent architecture** where each agent has a well-defined role and responsibility. Agents collaborate through structured tasks coordinated by a **Crew**, enabling separation of concerns and scalable workflows.
+El sistema sigue una **arquitectura multiagente**, donde cada agente tiene un rol y una responsabilidad bien definidos. Los agentes colaboran mediante tareas estructuradas coordinadas por una **Crew**, lo que permite una clara separación de responsabilidades y flujos de trabajo escalables.
 
-### High-level flow:
-1. User submits an order via a Streamlit interface.
-2. The order is processed by a set of specialized agents.
-3. Agents communicate and reason using an LLM (Grok via LiteLLM).
-4. Validated orders are stored in a database.
-5. The system returns a structured confirmation or error response.
-
----
-
-## 🤖 Agents and Roles
-
-The system is composed of the following agents:
-
-### 🧾 Order Intake Agent
-- Interprets the user’s natural language input.
-- Extracts structured order information (items, quantities, special requests).
-- Handles ambiguous or incomplete requests via LLM reasoning.
-
-### ✅ Order Validation Agent
-- Validates business rules (menu availability, quantities, constraints).
-- Ensures consistency and correctness of the order.
-- Requests clarification if validation fails.
-
-### 💾 Persistence Agent
-- Handles database interactions.
-- Stores validated orders in a relational database.
-- Ensures transactional integrity and error handling.
-
-Each agent is implemented as a **CrewAI Agent**, with its own:
-- Role description
-- Goal
-- Backstory
-- Tools (when applicable)
+### Flujo de alto nivel:
+1. El usuario envía un pedido a través de una interfaz Streamlit.
+2. El pedido es procesado por un conjunto de agentes especializados.
+3. Los agentes se comunican y razonan utilizando un LLM (Grok a través de LiteLLM).
+4. Los pedidos validados se almacenan en una base de datos.
+5. El sistema devuelve una confirmación estructurada o un mensaje de error.
 
 ---
 
-## 🧩 Tasks and Crew Orchestration
+## 🤖 Agentes y Roles
 
-Tasks define **what needs to be done**, while agents define **who does it**.
+El sistema está compuesto por los siguientes agentes:
 
-Typical tasks include:
-- Parsing and structuring the raw order.
-- Validating order constraints.
-- Persisting the order into the database.
-- Generating a final response for the user.
+### 🧾 Agente de Recepción de Pedidos
+- Interpreta la entrada del usuario en lenguaje natural.
+- Extrae información estructurada del pedido (productos, cantidades, peticiones especiales).
+- Gestiona pedidos ambiguos o incompletos mediante razonamiento con LLMs.
 
-These tasks are orchestrated by a **Crew**, which:
-- Controls execution order.
-- Manages shared context between agents.
-- Enables collaborative reasoning across agents.
+### ✅ Agente de Validación de Pedidos
+- Valida las reglas de negocio (disponibilidad del menú, cantidades, restricciones).
+- Garantiza la coherencia y corrección del pedido.
+- Solicita aclaraciones al usuario si la validación falla.
 
-This design allows easy extension (e.g. adding a payment agent or recommendation agent).
+### 💾 Agente de Persistencia
+- Gestiona las interacciones con la base de datos.
+- Almacena los pedidos validados en una base de datos relacional.
+- Garantiza la integridad transaccional y el manejo de errores.
 
----
-
-## 🧠 LLM Integration (LiteLLM + Grok)
-
-The system integrates **Grok** as the underlying LLM via **LiteLLM**, providing:
-- A unified API interface for LLM calls.
-- Easy model swapping if needed.
-- Centralized configuration via environment variables.
-
-LLM calls are used for:
-- Natural language understanding.
-- Reasoning and validation logic.
-- Generating structured outputs from free-form input.
-
-All LLM access is secured using environment variables and **never hardcoded**.
-
+Cada agente se implementa como un **Agente de CrewAI**, con su propia:
+- Descripción del rol
+- Objetivo
+- Contexto o *backstory*
+- Herramientas (cuando aplica)
 
 ---
 
-## 🚀 Installation & Setup
+## 🧩 Tareas y Orquestación de la Crew
 
-### 1. Create virtual environment
+Las tareas definen **qué debe hacerse**, mientras que los agentes definen **quién lo hace**.
+
+Las tareas típicas incluyen:
+- Análisis y estructuración del pedido en bruto.
+- Validación de restricciones del pedido.
+- Persistencia del pedido en la base de datos.
+- Generación de una respuesta final para el usuario.
+
+Estas tareas son orquestadas por una **Crew**, que:
+- Controla el orden de ejecución.
+- Gestiona el contexto compartido entre agentes.
+- Permite razonamiento colaborativo entre agentes.
+
+Este diseño facilita la extensión del sistema (por ejemplo, añadiendo un agente de pagos o un agente de recomendaciones).
+
+---
+
+## 🧠 Integración del LLM (LiteLLM + Grok)
+
+El sistema integra **Grok** como LLM subyacente a través de **LiteLLM**, lo que proporciona:
+- Una interfaz de API unificada para llamadas a LLMs.
+- Facilidad para cambiar de modelo si es necesario.
+- Configuración centralizada mediante variables de entorno.
+
+Las llamadas al LLM se utilizan para:
+- Comprensión de lenguaje natural.
+- Lógica de razonamiento y validación.
+- Generación de salidas estructuradas a partir de texto libre.
+
+Todo el acceso al LLM está securizado mediante variables de entorno y **nunca se codifica de forma explícita en el código fuente**.
+
+---
+
+## 🚀 Instalación y Ejecución
+
+### 1. Crear entorno virtual
 ```bash
 py -3.11 -m venv .venv
 ```
 
-### 2. Activate virtual environment
+### 2. Activar entorno virtual
 ```bash
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Install dependencies
+### 3. Instalar depedencias
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
-Create a `.env` file in the project root and set your Groq API key:
+### 4. Configurar variables de entorno
+Crea un archivo `env`e introduce tu Groq API key:
 ```bash
-GROQ_API_KEY="your_api_key_here"
+GROQ_API_KEY="tu_api_key"
 ```
 
-### 5. Run the Streamlit application
+### 5. Corre la aplicación de Streamlit
 ```bash
 streamlit run .\streamlit_app.py
 ```
