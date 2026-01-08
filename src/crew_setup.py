@@ -11,7 +11,7 @@ load_dotenv()
 class CrewConfigLoader:
     def __init__(self, config_path: str = "config"):
         self.config_path = config_path
-        self.llm = self._setup_llm_with_litellm()  # <-- CAMBIADO
+        self.llm = self._setup_llm_with_litellm()
     
     def _setup_llm_with_litellm(self):
         """Configura LLM usando LiteLLM para Groq"""
