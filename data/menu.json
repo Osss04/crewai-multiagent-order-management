@@ -1,0 +1,92 @@
+{
+  "PIZ-001": {
+    "id": "PIZ-001",
+    "name": "Pizza Margarita",
+    "description": "Pizza clásica con tomate, mozzarella y albahaca",
+    "price": 12.5,
+    "category": "Pizzas",
+    "available": true,
+    "preparation_time": 25,
+    "ingredients": [
+      "masa pizza",
+      "salsa tomate",
+      "mozzarella",
+      "albahaca"
+    ],
+    "allergens": [
+      "gluten",
+      "lactosa"
+    ]
+  },
+  "PIZ-002": {
+    "id": "PIZ-002",
+    "name": "Pizza Pepperoni",
+    "description": "Pizza con pepperoni y extra queso",
+    "price": 14.0,
+    "category": "Pizzas",
+    "available": true,
+    "preparation_time": 25,
+    "ingredients": [
+      "masa pizza",
+      "salsa tomate",
+      "mozzarella",
+      "pepperoni"
+    ],
+    "allergens": [
+      "gluten",
+      "lactosa"
+    ]
+  },
+  "ENS-001": {
+    "id": "ENS-001",
+    "name": "Ensalada César",
+    "description": "Ensalada con pollo, crutones y salsa césar",
+    "price": 9.5,
+    "category": "Ensaladas",
+    "available": true,
+    "preparation_time": 15,
+    "ingredients": [
+      "lechuga",
+      "pollo",
+      "crutones",
+      "salsa césar",
+      "parmesano"
+    ],
+    "allergens": [
+      "gluten",
+      "lactosa",
+      "mostaza"
+    ]
+  },
+  "HMB-001": {
+    "id": "HMB-001",
+    "name": "Hamburguesa Clásica",
+    "description": "Hamburguesa con carne, queso, lechuga y tomate",
+    "price": 10.5,
+    "category": "Hamburguesas",
+    "available": true,
+    "preparation_time": 20,
+    "ingredients": [
+      "pan hamburguesa",
+      "carne",
+      "queso",
+      "lechuga",
+      "tomate"
+    ],
+    "allergens": [
+      "gluten",
+      "lactosa"
+    ]
+  },
+  "BEB-001": {
+    "id": "BEB-001",
+    "name": "Coca-Cola",
+    "description": "Refresco de cola 330ml",
+    "price": 2.5,
+    "category": "Bebidas",
+    "available": true,
+    "preparation_time": 1,
+    "ingredients": [],
+    "allergens": []
+  }
+}
