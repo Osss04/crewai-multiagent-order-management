@@ -97,7 +97,7 @@ python -m pip install -r requirements.txt
 ```
 
 ### 4. Configurar variables de entorno
-Crea un archivo `env`e introduce tu Groq API key:
+Crea un archivo `env` e introduce tu *Groq API key*:
 ```bash
 GROQ_API_KEY="tu_api_key"
 ```
