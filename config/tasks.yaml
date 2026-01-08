@@ -1,0 +1,72 @@
+tasks:
+  analyze_message:
+    description: |
+      Analiza el mensaje recibido y determina su tipo.
+      - Si es pedido: extrae cliente, artículos, cantidades y horario
+      - Si es consulta: identifica qué información se solicita
+      - Si es spam: descarta el mensaje
+
+    expected_output: |
+      Un diccionario JSON con:
+      {
+        "type": "order|query|spam",
+        "data": { ... información extraída ... }
+      }
+
+    agent: reception_agent
+
+  validate_order:
+    description: |
+      Valida un pedido extraído:
+      1. Consulta el menú para verificar precios y disponibilidad
+      2. Verifica que el horario solicitado sea válido
+      3. Calcula el total del pedido
+      4. Identifica posibles problemas
+
+    expected_output: |
+      Un diccionario JSON con:
+      {
+        "valid": true/false,
+        "total": 0.00,
+        "issues": ["...", "..."],
+        "validated_items": [...]
+      }
+
+    agent: validator_agent
+    context: [analyze_message]
+
+  register_order:
+    description: |
+      Registra un pedido validado en la base de datos:
+      1. Crea una entrada única con ID
+      2. Guarda todos los detalles
+      3. Establece estado como "pendiente_confirmacion"
+
+    expected_output: |
+      Un diccionario JSON con:
+      {
+        "order_id": "PED-001",
+        "status": "registered",
+        "timestamp": "2024-01-01 12:00:00"
+      }
+
+    agent: registrar_agent
+    context: [validate_order]
+
+  send_confirmation:
+    description: |
+      Envía confirmación al cliente:
+      1. Prepara resumen del pedido
+      2. Envía mensaje por WhatsApp
+      3. Solicita confirmación explícita
+
+    expected_output: |
+      Un diccionario JSON con:
+      {
+        "message_sent": true,
+        "confirmation_required": true,
+        "client_response_timeout": 300
+      }
+
+    agent: confirmation_agent
+    context: [register_order]

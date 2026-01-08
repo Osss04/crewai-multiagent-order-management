@@ -1,0 +1,21 @@
+crew:
+  name: "Pedibot Order Processing Crew"
+  description: |
+    Sistema multiagente para procesar pedidos de restaurante
+    vía WhatsApp de manera automática.
+
+  agents:
+    - reception_agent
+    - validator_agent
+    - registrar_agent
+    - confirmation_agent
+
+  tasks:
+    - analyze_message
+    - validate_order
+    - register_order
+    - send_confirmation
+
+  process: sequential
+  verbose: true
+  memory: true
