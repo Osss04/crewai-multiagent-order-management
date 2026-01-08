@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-"""
-Pedibot Demo - Sistema de Automatización de Pedidos por WhatsApp
-Con integración Groq LLM
-"""
-
 import sys
 import os
 from datetime import datetime
@@ -17,8 +12,6 @@ litellm.telemetry = False
 litellm.suppress_debug_info = True
 
 
-
-# Añadir ruta para imports
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 from src.crew_setup import CrewConfigLoader
@@ -35,7 +28,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class PedibotDemo:
-    """Clase principal para la demostración de Pedibot con Groq"""
     
     def __init__(self, use_groq=True):
         print("🚀 Inicializando Pedibot Demo...")
@@ -48,7 +40,7 @@ class PedibotDemo:
         self.extractor = OrderExtractor(self.llm)
         self.demo_messages = DEMO_MESSAGES
 
-        # Inicializar crew si tenemos LLM
+        # Inicializar crew
         if self.llm and use_groq:
             print("🤖 Configurando CrewAI con Groq...")
             try:
@@ -159,7 +151,7 @@ class PedibotDemo:
                             self.menu_tools
                         )
                         
-                        # "Enviar" mensaje
+                        # Enviar mensaje
                         print("\n📤 RESPUESTA AUTOMÁTICA:")
                         print("-"*40)
                         print(order_summary)
@@ -254,7 +246,7 @@ class PedibotDemo:
             print(welcome_msg)
         
         print("-"*50)
-        time.sleep(1)  # Pausa para simular tiempo real
+        time.sleep(1)
     
     def show_dashboard(self):
         """Muestra un dashboard simple"""
