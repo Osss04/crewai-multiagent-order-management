@@ -4,15 +4,12 @@ import streamlit as st
 from dotenv import load_dotenv
 load_dotenv()
 
-# Importar tu lógica existente
 from src.tools.menu_tools import MenuTools
 from src.tools.db_tools import DatabaseTools
 from src.tools.whatsapp_tools import WhatsAppTools
 from src.tools.llm_tools import GroqLLMFactory, OrderExtractor
 
-# --------------------------------
-# Configuración inicial
-# --------------------------------
+
 st.set_page_config(
     page_title="Pedibot Demo",
     page_icon="🤖",
@@ -22,9 +19,7 @@ st.set_page_config(
 st.title("🤖 Pedibot – Demo de Automatización de Pedidos")
 st.caption("Sistema multiagente con extracción de pedidos mediante LLM")
 
-# --------------------------------
-# Inicializar dependencias (una sola vez)
-# --------------------------------
+
 @st.cache_resource
 def init_services(use_groq: bool = True):
     menu = MenuTools()
@@ -40,9 +35,7 @@ def init_services(use_groq: bool = True):
 use_groq = st.sidebar.toggle("Usar Groq LLM", value=True)
 menu_tools, db_tools, whatsapp_tools, extractor, llm = init_services(use_groq)
 
-# --------------------------------
-# Entrada del usuario
-# --------------------------------
+
 st.subheader("📱 Mensaje del cliente")
 
 default_message = "Hola, quiero 2 pizzas margarita y 1 coca-cola para las 20:30"
@@ -53,9 +46,7 @@ customer = st.text_input("Nombre del cliente", "Cliente Demo")
 if st.button("🚀 Procesar mensaje"):
     st.divider()
 
-    # --------------------------------
-    # Análisis del mensaje
-    # --------------------------------
+    
     analysis = whatsapp_tools.process_incoming_message(message, phone)
 
     col1, col2 = st.columns(2)
@@ -67,9 +58,8 @@ if st.button("🚀 Procesar mensaje"):
             "is_order": analysis["is_order"]
         })
 
-    # --------------------------------
+   
     # Extracción del pedido
-    # --------------------------------
     if analysis["is_order"]:
         extracted = extractor.extract(message)
 
@@ -84,9 +74,7 @@ if st.button("🚀 Procesar mensaje"):
             st.subheader("📋 Pedido extraído")
             st.json(extracted)
 
-        # --------------------------------
         # Validación del pedido
-        # --------------------------------
         validation = menu_tools.validate_order_items(extracted["items"])
 
         st.subheader("✅ Validación del pedido")
@@ -99,9 +87,7 @@ if st.button("🚀 Procesar mensaje"):
 
             st.metric("💰 Total", f"${validation['total_price']:.2f}")
 
-            # --------------------------------
             # Registrar pedido
-            # --------------------------------
             if st.button("📦 Registrar pedido"):
                 order_data = {
                     "customer_name": customer,
